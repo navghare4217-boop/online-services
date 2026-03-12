@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://digitalsevacenter.in/sitemap.xml
