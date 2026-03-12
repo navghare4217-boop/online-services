@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628"/>
+      <stop offset="100%" style="stop-color:#0a2c6e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="950" cy="150" r="200" fill="rgba(255,255,255,0.03)"/>
+  <circle cx="200" cy="500" r="150" fill="rgba(245,166,35,0.06)"/>
+  <rect x="80" y="80" width="60" height="60" rx="12" fill="#f5a623"/>
+  <text x="100" y="132" font-family="Arial" font-size="48" font-weight="bold" fill="white">D</text>
+  <text x="160" y="128" font-family="Arial" font-size="36" font-weight="bold" fill="white">Digital</text>
+  <text x="160" y="170" font-family="Arial" font-size="36" font-weight="bold" fill="#f5a623">Seva</text>
+  <text x="295" y="170" font-family="Arial" font-size="36" font-weight="bold" fill="white">Center</text>
+  <text x="80" y="270" font-family="Arial" font-size="62" font-weight="bold" fill="white">आपकी हर Digital Service</text>
+  <text x="80" y="350" font-family="Arial" font-size="62" font-weight="bold" fill="#f5a623">एक ही जगह पर!</text>
+  <text x="80" y="430" font-family="Arial" font-size="32" fill="rgba(255,255,255,0.75)">PAN Card · GST · DSC · MSME · Passport · Recharge</text>
+  <text x="80" y="490" font-family="Arial" font-size="32" fill="rgba(255,255,255,0.75)">Aurangabad, Maharashtra | ☎ +91 7972971296</text>
+  <rect x="80" y="540" width="300" height="56" rx="28" fill="#f5a623"/>
+  <text x="135" y="576" font-family="Arial" font-size="26" font-weight="bold" fill="white">Get Service Now</text>
+</svg>
