@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Now – Digital Seva Center Aurangabad</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<style>
+  :root {
+    --brand: #1a56db;
+    --brand-dark: #1341b0;
+    --brand-light: #e8f0fe;
+    --accent: #f59e0b;
+    --accent-dark: #d97706;
+    --success: #10b981;
+    --danger: #ef4444;
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --text: #1e2a3b;
+    --muted: #6b7a96;
+    --border: #dde3f0;
+    --radius: 14px;
+    --shadow: 0 4px 24px rgba(26,86,219,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Baloo 2', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--brand);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(26,86,219,0.3);
+  }
+  .nav-logo {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-contact {
+    color: rgba(255,255,255,0.85);
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .nav-contact a { color: var(--accent); text-decoration: none; }
+
+  /* HERO BANNER */
+  .hero {
+    background: linear-gradient(135deg, #1341b0 0%, #1a56db 60%, #2563eb 100%);
+    color: #fff;
+    text-align: center;
+    padding: 44px 20px 36px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(245,158,11,0.18);
+    border: 1px solid rgba(245,158,11,0.4);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 14px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+    letter-spacing: 0.5px;
+  }
+  .hero h1 {
+    font-size: clamp(24px, 5vw, 38px);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.78);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* MAIN LAYOUT */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 16px 60px;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 24px;
+    align-items: start;
+  }
+  @media (max-width: 700px) {
+    .container { grid-template-columns: 1fr; }
+  }
+
+  /* CARD */
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    padding: 24px;
+  }
+
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--brand);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 18px;
+    background: var(--brand);
+    border-radius: 2px;
+  }
+
+  /* SERVICES GRID */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .service-card {
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.18s;
+    background: #fff;
+    position: relative;
+    user-select: none;
+  }
+  .service-card:hover {
+    border-color: var(--brand);
+    background: var(--brand-light);
+  }
+  .service-card.selected {
+    border-color: var(--brand);
+    background: var(--brand-light);
+  }
+  .service-card.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 6px; right: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--brand);
+  }
+  .service-icon { font-size: 24px; margin-bottom: 6px; }
+  .service-name { font-size: 12px; font-weight: 600; color: var(--text); line-height: 1.3; }
+  .service-price { font-size: 13px; font-weight: 700; color: var(--brand); margin-top: 4px; }
+
+  /* FORM */
+  .form-group { margin-bottom: 16px; }
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  input, select, textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 9px;
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: #fff;
+    outline: none;
+    transition: border 0.15s;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px rgba(26,86,219,0.08);
+  }
+  input::placeholder { color: #b0bac9; }
+  select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'%3E%3Cpath fill='%236b7a96' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
+  textarea { resize: vertical; min-height: 80px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+
+  /* ORDER SUMMARY CARD */
+  .summary-card {
+    position: sticky;
+    top: 76px;
+  }
+  .summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--border);
+    font-size: 14px;
+  }
+  .summary-item:last-child { border-bottom: none; }
+  .summary-item .label { color: var(--muted); }
+  .summary-item .value { font-weight: 600; color: var(--text); }
+  .summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 2px solid var(--border);
+  }
+  .total-label { font-size: 15px; font-weight: 700; }
+  .total-amount { font-size: 24px; font-weight: 800; color: var(--brand); }
+
+  /* TRUST BADGES */
+  .trust-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+    margin-bottom: 4px;
+  }
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    background: var(--bg);
+    border-radius: 6px;
+    padding: 4px 9px;
+  }
+  .trust-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--success); }
+
+  /* PAY BUTTON */
+  .pay-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--brand);
+    color: #fff;
+    border: none;
+    border-radius: 11px;
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.2s, transform 0.1s;
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .pay-btn:hover { background: var(--brand-dark); }
+  .pay-btn:active { transform: scale(0.98); }
+  .pay-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .pay-icon { font-size: 20px; }
+
+  .rzp-note {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 10px;
+  }
+  .rzp-note span { color: #072654; font-weight: 700; }
+
+  /* ALERT */
+  .alert {
+    display: none;
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 14px;
+    align-items: center;
+    gap: 10px;
+  }
+  .alert.success { background: #ecfdf5; color: #065f46; border: 1px solid #6ee7b7; display: flex; }
+  .alert.error { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; display: flex; }
+
+  /* WHATSAPP FLOAT */
+  .wa-float {
+    position: fixed;
+    bottom: 24px;
+    right: 20px;
+    width: 52px;
+    height: 52px;
+    background: #25d366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 18px rgba(37,211,102,0.4);
+    z-index: 999;
+    transition: transform 0.2s;
+  }
+  .wa-float:hover { transform: scale(1.1); }
+  .wa-float svg { width: 28px; height: 28px; fill: #fff; }
+
+  /* EMPTY STATE */
+  .no-service-msg {
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+    padding: 12px 0 4px;
+    display: none;
+  }
+
+  /* STEPS */
+  .steps-row {
+    display: flex;
+    gap: 0;
+    margin-bottom: 26px;
+  }
+  .step {
+    flex: 1;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    position: relative;
+    padding-bottom: 12px;
+  }
+  .step::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%; right: -50%;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+  }
+  .step.active { color: var(--brand); }
+  .step.active::after { background: var(--brand); }
+  .step:last-child::after { display: none; }
+  .step-num {
+    width: 26px; height: 26px;
+    background: var(--border);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--muted);
+  }
+  .step.active .step-num { background: var(--brand); color: #fff; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="https://digitalsevacenter.in">Digital<span>Seva</span>Center</a>
+  <div class="nav-contact">📞 <a href="tel:7972971296">7972971296</a></div>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">⚡ Online Service Booking</div>
+  <h1>Service Book करें &amp; <span>Online Pay</span> करें</h1>
+  <p>Aurangabad का सबसे भरोसेमंद Digital Seva Center – Fast, Secure, Affordable</p>
+</div>
+
+<div class="container">
+
+  <!-- LEFT: FORM -->
+  <div>
+
+    <!-- STEP INDICATOR -->
+    <div class="steps-row">
+      <div class="step active">
+        <div class="step-num">1</div><br>Service चुनें
+      </div>
+      <div class="step active">
+        <div class="step-num">2</div><br>Details भरें
+      </div>
+      <div class="step active">
+        <div class="step-num">3</div><br>Payment करें
+      </div>
+    </div>
+
+    <!-- SERVICE SELECTION -->
+    <div class="card" style="margin-bottom:20px;">
+      <div class="section-title">Service चुनें</div>
+      <div class="services-grid" id="servicesGrid">
+
+        <div class="service-card" data-service="PAN Card" data-price="499" onclick="toggleService(this)">
+          <div class="service-icon">🪪</div>
+          <div class="service-name">PAN Card</div>
+          <div class="service-price">₹499</div>
+        </div>
+
+        <div class="service-card" data-service="GST Registration" data-price="1499" onclick="toggleService(this)">
+          <div class="service-icon">🏢</div>
+          <div class="service-name">GST Registration</div>
+          <div class="service-price">₹1,499</div>
+        </div>
+
+        <div class="service-card" data-service="DSC (Class 3)" data-price="1999" onclick="toggleService(this)">
+          <div class="service-icon">🔐</div>
+          <div class="service-name">DSC Class 3</div>
+          <div class="service-price">₹1,999</div>
+        </div>
+
+        <div class="service-card" data-service="MSME Registration" data-price="999" onclick="toggleService(this)">
+          <div class="service-icon">🏭</div>
+          <div class="service-name">MSME Reg.</div>
+          <div class="service-price">₹999</div>
+        </div>
+
+        <div class="service-card" data-service="Passport Apply" data-price="799" onclick="toggleService(this)">
+          <div class="service-icon">✈️</div>
+          <div class="service-name">Passport Apply</div>
+          <div class="service-price">₹799</div>
+        </div>
+
+        <div class="service-card" data-service="Shop Act License" data-price="1299" onclick="toggleService(this)">
+          <div class="service-icon">🏪</div>
+          <div class="service-name">Shop Act</div>
+          <div class="service-price">₹1,299</div>
+        </div>
+
+        <div class="service-card" data-service="Excel to Tally" data-price="1999" onclick="toggleService(this)">
+          <div class="service-icon">📊</div>
+          <div class="service-name">Excel/Tally</div>
+          <div class="service-price">₹1,999</div>
+        </div>
+
+        <div class="service-card" data-service="Website Design" data-price="4999" onclick="toggleService(this)">
+          <div class="service-icon">🌐</div>
+          <div class="service-name">Website Design</div>
+          <div class="service-price">₹4,999</div>
+        </div>
+
+        <div class="service-card" data-service="GST Return Filing" data-price="699" onclick="toggleService(this)">
+          <div class="service-icon">📋</div>
+          <div class="service-name">GST Return</div>
+          <div class="service-price">₹699</div>
+        </div>
+
+        <div class="service-card" data-service="Income Certificate" data-price="299" onclick="toggleService(this)">
+          <div class="service-icon">📜</div>
+          <div class="service-name">Income Cert.</div>
+          <div class="service-price">₹299</div>
+        </div>
+
+        <div class="service-card other-card" id="otherCard" data-service="Other Service" data-price="0" onclick="toggleOther(this)">
+          <div class="service-icon">✏️</div>
+          <div class="service-name">Other Service</div>
+          <div class="service-price" id="otherPriceLabel">Custom ₹</div>
+        </div>
+
+      </div>
+
+      <!-- Other Service Amount Input -->
+      <div id="otherAmountBox" style="display:none; margin-top:4px; margin-bottom:2px;">
+        <label for="otherAmount" style="font-size:13px; font-weight:600; color:var(--muted); margin-bottom:6px; display:block;">Service का नाम और Amount डालें</label>
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <input type="text" id="otherName" placeholder="जैसे: Voter ID, Caste Cert..." style="flex:1; min-width:160px;" oninput="updateOther()">
+          <div style="position:relative; flex:1; min-width:120px;">
+            <span style="position:absolute; left:13px; top:50%; transform:translateY(-50%); font-weight:700; color:var(--brand); font-size:16px;">₹</span>
+            <input type="number" id="otherAmount" placeholder="Amount" min="1" style="padding-left:30px;" oninput="updateOther()">
+          </div>
+        </div>
+      </div>
+
+      <p class="no-service-msg" id="noServiceMsg">कोई service select नहीं है</p>
+    </div>
+
+    <!-- PERSONAL DETAILS -->
+    <div class="card">
+      <div class="section-title">आपकी Details</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">पूरा नाम *</label>
+          <input type="text" id="name" placeholder="Rahul Deshmukh" required>
+        </div>
+        <div class="form-group">
+          <label for="mobile">Mobile Number *</label>
+          <input type="tel" id="mobile" placeholder="9876543210" maxlength="10" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" placeholder="example@gmail.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="city">शहर / Area</label>
+        <input type="text" id="city" placeholder="Aurangabad, Jalna...">
+      </div>
+
+      <div class="form-group">
+        <label for="note">अतिरिक्त जानकारी (Optional)</label>
+        <textarea id="note" placeholder="Service के बारे में कुछ और बताना हो तो यहाँ लिखें..."></textarea>
+      </div>
+
+      <div id="alertBox" class="alert"></div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT: ORDER SUMMARY -->
+  <div class="summary-card">
+    <div class="card">
+      <div class="section-title">Order Summary</div>
+
+      <div id="summaryItems">
+        <div class="summary-item">
+          <span class="label">कोई service select नहीं</span>
+          <span class="value">–</span>
+        </div>
+      </div>
+
+      <div class="summary-total">
+        <span class="total-label">Total Amount</span>
+        <span class="total-amount" id="totalAmount">₹0</span>
+      </div>
+
+      <div class="trust-row">
+        <div class="trust-badge"><span class="dot"></span> 100% Secure Payment</div>
+        <div class="trust-badge"><span class="dot"></span> Razorpay Protected</div>
+        <div class="trust-badge"><span class="dot"></span> UPI / Card / Net Banking</div>
+      </div>
+
+      <button class="pay-btn" id="payBtn" onclick="initiatePayment()" disabled>
+        <span class="pay-icon">💳</span>
+        अभी Pay करें
+      </button>
+
+      <p class="rzp-note">Powered by <span>Razorpay</span> · सभी payments 256-bit SSL encrypted</p>
+    </div>
+
+    <!-- INFO CARD -->
+    <div class="card" style="margin-top:16px; padding:16px;">
+      <div style="font-size:13px; color:var(--muted); line-height:1.7;">
+        <div style="font-weight:700; color:var(--text); margin-bottom:8px; font-size:14px;">📞 Help चाहिए?</div>
+        Call / WhatsApp: <a href="tel:7972971296" style="color:var(--brand); font-weight:600;">7972971296</a><br>
+        Mon–Sat: 9 AM – 7 PM<br>
+        <br>
+        <div style="font-weight:600; color:var(--text);">Payment के बाद:</div>
+        हमारी team 2 घंटे में contact करेगी।
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- WhatsApp Float -->
+<a class="wa-float" href="https://wa.me/917972971296" target="_blank" title="WhatsApp us">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.121 1.532 5.849L.057 23.743a.5.5 0 0 0 .612.612l5.895-1.475A11.952 11.952 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.921 0-3.721-.507-5.278-1.393l-.378-.225-3.927.982.998-3.928-.247-.395A9.937 9.937 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+<script>
+  // ─── CONFIG ───────────────────────────────────────────────────────────────
+  // ⚠️  यहाँ अपना Razorpay Key ID डालें (Razorpay Dashboard → Settings → API Keys)
+  const RAZORPAY_KEY_ID = 'rzp_live_Shb2RYBxDQPOJO';
+  // Live के लिए: 'rzp_live_XXXXXXXXXXXXXXXX'
+
+  // ─── STATE ────────────────────────────────────────────────────────────────
+  let selectedServices = [];
+
+  function toggleOther(el) {
+    const box = document.getElementById('otherAmountBox');
+    if (el.classList.contains('selected')) {
+      el.classList.remove('selected');
+      box.style.display = 'none';
+      selectedServices = selectedServices.filter(s => s.name !== el.dataset.service && !s.isOther);
+      el.dataset.price = '0';
+      document.getElementById('otherPriceLabel').textContent = 'Custom ₹';
+      updateSummary();
+    } else {
+      el.classList.add('selected');
+      box.style.display = 'block';
+      document.getElementById('otherName').focus();
+    }
+  }
+
+  function updateOther() {
+    const nameVal = document.getElementById('otherName').value.trim();
+    const amtVal = parseInt(document.getElementById('otherAmount').value) || 0;
+    const displayName = nameVal || 'Other Service';
+    const card = document.getElementById('otherCard');
+
+    card.dataset.service = displayName;
+    card.dataset.price = amtVal;
+    document.getElementById('otherPriceLabel').textContent = amtVal > 0 ? '₹' + amtVal.toLocaleString('en-IN') : 'Custom ₹';
+
+    selectedServices = selectedServices.filter(s => !s.isOther);
+    if (card.classList.contains('selected') && amtVal > 0) {
+      selectedServices.push({ name: displayName, price: amtVal, isOther: true });
+    }
+    updateSummary();
+  }
+
+  function toggleService(el) {
+    const service = el.dataset.service;
+    const price = parseInt(el.dataset.price);
+    const idx = selectedServices.findIndex(s => s.name === service);
+
+    if (idx > -1) {
+      selectedServices.splice(idx, 1);
+      el.classList.remove('selected');
+    } else {
+      selectedServices.push({ name: service, price });
+      el.classList.add('selected');
+    }
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const container = document.getElementById('summaryItems');
+    const totalEl = document.getElementById('totalAmount');
+    const payBtn = document.getElementById('payBtn');
+
+    if (selectedServices.length === 0) {
+      container.innerHTML = `<div class="summary-item"><span class="label">कोई service select नहीं</span><span class="value">–</span></div>`;
+      totalEl.textContent = '₹0';
+      payBtn.disabled = true;
+      return;
+    }
+
+    let total = 0;
+    let html = '';
+    selectedServices.forEach(s => {
+      total += s.price;
+      html += `<div class="summary-item">
+        <span class="label">${s.name}</span>
+        <span class="value">₹${s.price.toLocaleString('en-IN')}</span>
+      </div>`;
+    });
+    container.innerHTML = html;
+    totalEl.textContent = '₹' + total.toLocaleString('en-IN');
+    payBtn.disabled = false;
+  }
+
+  function showAlert(type, msg) {
+    const el = document.getElementById('alertBox');
+    el.className = 'alert ' + type;
+    el.textContent = msg;
+  }
+
+  function initiatePayment() {
+    const name = document.getElementById('name').value.trim();
+    const mobile = document.getElementById('mobile').value.trim();
+    const email = document.getElementById('email').value.trim();
+
+    if (selectedServices.length === 0) { showAlert('error', '⚠️ कृपया कम से कम एक service select करें।'); return; }
+    if (!name) { showAlert('error', '⚠️ कृपया अपना नाम भरें।'); return; }
+    if (!/^[6-9]\d{9}$/.test(mobile)) { showAlert('error', '⚠️ Valid 10-digit mobile number डालें।'); return; }
+    if (!email || !/\S+@\S+\.\S+/.test(email)) { showAlert('error', '⚠️ Valid email address डालें।'); return; }
+
+    const total = selectedServices.reduce((s, i) => s + i.price, 0);
+    const serviceNames = selectedServices.map(s => s.name).join(', ');
+    const city = document.getElementById('city').value.trim() || 'Aurangabad';
+    const note = document.getElementById('note').value.trim();
+
+    const options = {
+      key: RAZORPAY_KEY_ID,
+      amount: total * 100, // paise
+      currency: 'INR',
+      name: 'Digital Seva Center',
+      description: serviceNames,
+      image: 'https://digitalsevacenter.in/favicon.ico',
+      prefill: {
+        name: name,
+        email: email,
+        contact: '91' + mobile
+      },
+      notes: {
+        services: serviceNames,
+        city: city,
+        message: note
+      },
+      theme: { color: '#1a56db' },
+      handler: function(response) {
+        showAlert('success',
+          '✅ Payment Successful! Payment ID: ' + response.razorpay_payment_id +
+          ' | हमारी team जल्द contact करेगी।'
+        );
+        // यहाँ server-side verification add करें
+        sendWhatsAppConfirmation(name, mobile, serviceNames, total, response.razorpay_payment_id);
+      },
+      modal: {
+        ondismiss: function() {
+          showAlert('error', '❌ Payment cancel हुई। दोबारा try करें।');
+        }
+      }
+    };
+
+    try {
+      const rzp = new Razorpay(options);
+      rzp.on('payment.failed', function(res) {
+        showAlert('error', '❌ Payment failed: ' + res.error.description);
+      });
+      rzp.open();
+    } catch(e) {
+      showAlert('error', '⚠️ Razorpay load नहीं हो सका। Internet check करें या refresh करें।');
+    }
+  }
+
+  function sendWhatsAppConfirmation(name, mobile, services, amount, paymentId) {
+    const msg = encodeURIComponent(
+      `*New Order – Digital Seva Center*\n\n` +
+      `👤 Name: ${name}\n` +
+      `📱 Mobile: ${mobile}\n` +
+      `📦 Services: ${services}\n` +
+      `💰 Amount: ₹${amount.toLocaleString('en-IN')}\n` +
+      `🆔 Payment ID: ${paymentId}`
+    );
+    window.open('https://wa.me/917972971296?text=' + msg, '_blank');
+  }
+</script>
+</body>
+</html>
