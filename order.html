@@ -736,4 +736,435 @@
   }
 </script>
 </body>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:#f8fafc;color:#1e293b;}
+.trust-bar{background:#fff;border-bottom:1px solid #e2e8f0;padding:12px 20px;display:flex;justify-content:center;gap:28px;flex-wrap:wrap;}
+.trust-item{display:flex;align-items:center;gap:6px;font-size:13px;color:#475569;font-weight:600;}
+.main-wrap{max-width:1100px;margin:28px auto;padding:0 16px;display:flex;gap:24px;align-items:flex-start;}
+.services-col{flex:1 1 60%;}
+.cart-col{flex:0 0 340px;position:sticky;top:20px;}
+.section-card{background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,0.07);border:1px solid #e2e8f0;margin-bottom:20px;overflow:hidden;}
+.section-head{padding:14px 20px;font-size:15px;font-weight:700;color:#1e293b;background:#f8fafc;border-bottom:1px solid #e2e8f0;}
+.service-row{display:flex;align-items:center;justify-content:space-between;padding:13px 20px;border-bottom:1px solid #f1f5f9;transition:background 0.15s;gap:12px;}
+.service-row:last-child{border-bottom:none;}
+.service-row:hover{background:#f8fafc;}
+.svc-icon{font-size:22px;flex-shrink:0;}
+.svc-info{flex:1;min-width:0;}
+.svc-name{font-size:14px;font-weight:600;color:#1e293b;line-height:1.3;}
+.svc-desc{font-size:12px;color:#64748b;margin-top:2px;}
+.svc-right{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.svc-price{font-size:15px;font-weight:700;color:#4f46e5;min-width:70px;text-align:right;}
+.add-btn{background:#4f46e5;color:white;border:none;border-radius:8px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'Inter',sans-serif;}
+.add-btn:hover{background:#4338ca;}
+.cart-card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(79,70,229,0.1);border:2px solid #e0e7ff;overflow:hidden;}
+.cart-head{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:white;padding:14px 20px;font-size:16px;font-weight:700;}
+.cart-body{padding:16px;}
+.cart-empty{text-align:center;padding:28px 0;color:#94a3b8;}
+.cart-empty .ei{font-size:40px;margin-bottom:8px;}
+.cart-empty p{font-size:14px;font-weight:600;}
+.cart-empty span{font-size:12px;}
+.cart-item{background:#f8f7ff;border:1px solid #e0e7ff;border-radius:10px;padding:10px 12px;margin-bottom:8px;animation:si 0.25s ease;}
+@keyframes si{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+.ci-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.ci-name{font-size:13px;font-weight:600;color:#1e293b;display:flex;gap:6px;align-items:center;}
+.ci-rm{background:none;border:none;color:#ef4444;cursor:pointer;font-size:16px;line-height:1;padding:0;}
+.ci-bot{display:flex;align-items:center;justify-content:space-between;}
+.qty-ctrl{display:flex;align-items:center;background:white;border:1.5px solid #c7d2fe;border-radius:8px;overflow:hidden;}
+.qty-btn{background:none;border:none;cursor:pointer;padding:4px 10px;font-size:16px;font-weight:700;color:#4f46e5;font-family:'Inter',sans-serif;}
+.qty-btn:hover{background:#e0e7ff;}
+.qty-val{font-size:14px;font-weight:700;color:#4f46e5;padding:0 6px;}
+.ci-total{font-size:14px;font-weight:700;color:#4f46e5;}
+.coupon-row{display:flex;gap:8px;margin-top:14px;margin-bottom:4px;}
+.coupon-input{flex:1;border:1.5px solid #e2e8f0;border-radius:8px;padding:9px 12px;font-size:13px;text-transform:uppercase;font-family:'Inter',sans-serif;}
+.coupon-input:focus{outline:none;border-color:#4f46e5;}
+.coupon-btn{background:#10b981;color:white;border:none;border-radius:8px;padding:9px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+.coupon-btn:hover{background:#059669;}
+.coupon-msg{font-size:12px;margin-top:4px;min-height:18px;}
+.price-summary{border-top:1.5px dashed #e2e8f0;margin-top:14px;padding-top:12px;}
+.price-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;color:#475569;}
+.price-row .lbl{font-weight:500;}
+.price-row .val{font-weight:600;}
+.disc-row{display:none;color:#10b981;}
+.total-row{display:flex;justify-content:space-between;align-items:center;border-top:1.5px solid #e2e8f0;padding-top:10px;margin-top:6px;}
+.total-lbl{font-size:15px;font-weight:700;}
+.total-val{font-size:22px;font-weight:800;color:#4f46e5;}
+.total-note{font-size:11px;color:#94a3b8;margin-top:4px;}
+.cust-form{margin-top:16px;display:flex;flex-direction:column;gap:9px;}
+.cust-input{border:1.5px solid #e2e8f0;border-radius:8px;padding:10px 13px;font-size:13px;width:100%;font-family:'Inter',sans-serif;}
+.cust-input:focus{outline:none;border-color:#4f46e5;}
+textarea.cust-input{resize:vertical;min-height:64px;}
+.pay-btn{width:100%;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:white;border:none;border-radius:10px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Inter',sans-serif;}
+.pay-btn:hover:not([disabled]){opacity:0.92;}
+.pay-btn[disabled]{background:#94a3b8;cursor:not-allowed;}
+.wa-btn{width:100%;background:linear-gradient(135deg,#25d366,#128c7e);color:white;border:none;border-radius:10px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Inter',sans-serif;}
+.wa-btn:hover:not([disabled]){opacity:0.92;}
+.wa-btn[disabled]{background:#94a3b8;cursor:not-allowed;}
+.secure-note{font-size:11px;color:#64748b;text-align:center;margin-top:8px;line-height:1.5;}
+.trust-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;}
+.trust-mini-item{background:#f8f7ff;border:1px solid #e0e7ff;border-radius:10px;padding:10px 6px;text-align:center;}
+.trust-mini-item .ti{font-size:20px;margin-bottom:4px;}
+.trust-mini-item .tl{font-size:11px;font-weight:600;color:#475569;}
+.bottom-wrap{max-width:1100px;margin:0 auto 24px;padding:0 16px;}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:20px;}
+.process-step{text-align:center;}
+.process-num{width:36px;height:36px;background:#4f46e5;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;margin:0 auto 8px;}
+.process-title{font-size:13px;font-weight:600;color:#1e293b;margin-bottom:4px;}
+.process-desc{font-size:11px;color:#64748b;line-height:1.4;}
+.faq-list{padding:4px 20px 20px;}
+.faq-item{border-bottom:1px solid #f1f5f9;padding:14px 0;}
+.faq-item:last-child{border-bottom:none;}
+.faq-q{font-size:14px;font-weight:600;color:#1e293b;margin-bottom:5px;}
+.faq-a{font-size:13px;color:#64748b;line-height:1.55;}
+@media(max-width:768px){.main-wrap{flex-direction:column;}.cart-col{flex:none;width:100%;position:static;}.process-grid{grid-template-columns:repeat(2,1fr);}.trust-bar{gap:14px;}}
+</style>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<div class="trust-bar">
+  <div class="trust-item">&#10003; 100% Free Consultation</div>
+  <div class="trust-item">&#9889; 24hr Response</div>
+  <div class="trust-item">&#128274; Privacy Guaranteed</div>
+  <div class="trust-item">Trusted Across India</div>
+</div>
+
+<div class="main-wrap">
+  <div class="services-col" id="servicesContainer"></div>
+
+  <div class="cart-col">
+    <div class="cart-card">
+      <div class="cart-head">Your Order Summary</div>
+      <div class="cart-body">
+        <div id="cartItems">
+          <div class="cart-empty">
+            <div class="ei">&#128717;</div>
+            <p>Cart is Empty</p>
+            <span>Select services from the left</span>
+          </div>
+        </div>
+        <div class="coupon-row">
+          <input class="coupon-input" id="dspCouponInput" placeholder="Coupon code?" type="text" />
+          <button class="coupon-btn" onclick="dspApplyCoupon()">Apply</button>
+        </div>
+        <div class="coupon-msg" id="dspCouponMsg"></div>
+        <div class="price-summary">
+          <div class="price-row"><span class="lbl">Subtotal</span><span class="val" id="dspSubtotal">-</span></div>
+          <div class="price-row disc-row" id="dspDiscRow">
+            <span class="lbl">Discount (<span id="dspDiscPct">0</span>%)</span>
+            <span class="val" style="color:#10b981">-<span id="dspDiscAmt">0</span></span>
+          </div>
+          <div class="total-row">
+            <span class="total-lbl">Total</span>
+            <span class="total-val" id="dspTotal">-</span>
+          </div>
+          <p class="total-note">*Final price may vary based on project requirements</p>
+        </div>
+        <div class="cust-form">
+          <input class="cust-input" id="dspName"  placeholder="Your Full Name *" type="text" />
+          <input class="cust-input" id="dspPhone" placeholder="Mobile Number *"  type="tel" />
+          <input class="cust-input" id="dspEmail" placeholder="Email (Optional)"  type="email" />
+          <textarea class="cust-input" id="dspNotes" placeholder="Special requirements or questions..."></textarea>
+        </div>
+        <button class="pay-btn" id="dspPayBtn" onclick="dspRazorpay()" disabled>
+          &#128179; Pay Now (UPI / Card / Net Banking)
+        </button>
+        <button class="wa-btn" id="dspWaBtn" onclick="dspWhatsapp()" disabled>
+          &#128172; Order via WhatsApp
+        </button>
+        <p class="secure-note">&#128274; Payments secured by Razorpay &mdash; UPI, Cards, Net Banking &amp; Wallets accepted.</p>
+      </div>
+    </div>
+    <div class="trust-mini">
+      <div class="trust-mini-item"><div class="ti">&#9889;</div><div class="tl">Fast Delivery</div></div>
+      <div class="trust-mini-item"><div class="ti">&#128175;</div><div class="tl">Quality Work</div></div>
+      <div class="trust-mini-item"><div class="ti">&#129309;</div><div class="tl">After Support</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-wrap">
+  <div class="section-card">
+    <div class="section-head">How to Place Your Order - 4 Simple Steps</div>
+    <div class="process-grid">
+      <div class="process-step"><div class="process-num">1</div><div class="process-title">Select Services</div><div class="process-desc">Choose services and add them to your cart.</div></div>
+      <div class="process-step"><div class="process-num">2</div><div class="process-title">Fill Your Details</div><div class="process-desc">Enter your name, mobile number, and requirements.</div></div>
+      <div class="process-step"><div class="process-num">3</div><div class="process-title">Pay or WhatsApp</div><div class="process-desc">Pay securely via Razorpay or send order on WhatsApp.</div></div>
+      <div class="process-step"><div class="process-num">4</div><div class="process-title">We Start Work</div><div class="process-desc">Our team confirms and begins work within 24 hours.</div></div>
+    </div>
+  </div>
+  <div class="section-card">
+    <div class="section-head">Frequently Asked Questions</div>
+    <div class="faq-list">
+      <div class="faq-item"><div class="faq-q">Which payment methods are accepted?</div><div class="faq-a">We accept UPI (Google Pay, PhonePe, Paytm), Debit/Credit Cards, Net Banking, and Wallets - all secured by Razorpay. You can also place your order on WhatsApp and pay later.</div></div>
+      <div class="faq-item"><div class="faq-q">Is it safe to pay online?</div><div class="faq-a">Yes, 100%. All payments are processed by Razorpay - a PCI-DSS compliant payment gateway trusted by thousands of Indian businesses. We never store your card or UPI details.</div></div>
+      <div class="faq-item"><div class="faq-q">How long does delivery take?</div><div class="faq-a">Most projects are delivered within 3 to 7 business days depending on the service. Timelines are confirmed after order is placed.</div></div>
+      <div class="faq-item"><div class="faq-q">Can I order multiple services together?</div><div class="faq-a">Yes! Add multiple services to your cart and place a combined order. We offer custom bundled pricing for multiple services.</div></div>
+      <div class="faq-item"><div class="faq-q">What if I need a custom service not listed here?</div><div class="faq-a">Simply chat with us on WhatsApp or request a free consultation - we handle custom projects too.</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ---- Config — Blogger HTML mode will NOT touch JS strings ----
+var DSP_WA  = '917798919864';
+var DSP_RZP = 'rzp_live_Shb2RYBxDQPOJO';
+var RS = '\u20B9'; // Rupee sign stored as Unicode escape — safe from Blogger encoding
+
+// ---- Services Data ----
+var DB = {
+  web:{title:'Web Development',services:[
+    {id:'w1',name:'Basic Website (5 Pages)',price:2999,desc:'Responsive, SEO-friendly, fast loading'},
+    {id:'w2',name:'Business Website (10 Pages)',price:5999,desc:'Custom design, contact forms, gallery'},
+    {id:'w3',name:'E-commerce Website',price:12999,desc:'Product catalog, cart, payment gateway'},
+    {id:'w4',name:'Landing Page',price:1499,desc:'Single page for campaigns or promotions'},
+    {id:'w5',name:'Website Redesign',price:3999,desc:'Modernize your existing website'}
+  ]},
+  marketing:{title:'Digital Marketing',services:[
+    {id:'m1',name:'SEO Package (Monthly)',price:2499,desc:'On-page, off-page, keyword research'},
+    {id:'m2',name:'Google Ads Setup',price:1999,desc:'Campaign setup and optimization'},
+    {id:'m3',name:'Social Media Marketing',price:2999,desc:'Facebook, Instagram, LinkedIn'},
+    {id:'m4',name:'WhatsApp Marketing',price:1499,desc:'Bulk messaging, automation'},
+    {id:'m5',name:'Content Writing (10 Posts)',price:1999,desc:'Blog posts, social media content'}
+  ]},
+  excel:{title:'Excel & Automation',services:[
+    {id:'e1',name:'Excel Dashboard',price:799,desc:'Custom KPI tracking dashboard'},
+    {id:'e2',name:'Excel Automation (Macros)',price:1499,desc:'VBA automation for repetitive tasks'},
+    {id:'e3',name:'Excel to Tally Import',price:999,desc:'Bulk voucher and ledger import'},
+    {id:'e4',name:'Data Analysis Report',price:1299,desc:'Advanced formulas, pivot tables'},
+    {id:'e5',name:'Excel Training (5 Hours)',price:2499,desc:'One-on-one personalized training'}
+  ]},
+  registration:{title:'Government Registrations',services:[
+    {id:'r1',name:'GST Registration',price:499,desc:'Complete GST registration assistance'},
+    {id:'r2',name:'MSME / Udyam Registration',price:299,desc:'Udyam certificate for your business'},
+    {id:'r3',name:'Digital Signature (DSC)',price:799,desc:'Class 2 and Class 3 DSC certificate'},
+    {id:'r4',name:'PAN Card Application',price:199,desc:'New PAN card application'},
+    {id:'r5',name:'Trademark Registration',price:4999,desc:'Brand name and logo protection'}
+  ]},
+  design:{title:'Design & Branding',services:[
+    {id:'d1',name:'Logo Design',price:599,desc:'3 concepts, unlimited revisions'},
+    {id:'d2',name:'Business Card Design',price:299,desc:'Professional print-ready design'},
+    {id:'d3',name:'Brochure Design',price:799,desc:'Bi-fold or tri-fold brochure'},
+    {id:'d4',name:'Social Media Graphics (10)',price:999,desc:'Instagram and Facebook posts'},
+    {id:'d5',name:'Banner Design',price:499,desc:'Web or print banner design'}
+  ]},
+  other:{title:'Other Services',services:[
+    {id:'o1',name:'Domain Registration',price:799,desc:'.com or .in domain for 1 year'},
+    {id:'o2',name:'Web Hosting (1 Year)',price:1999,desc:'Shared hosting with free SSL'},
+    {id:'o3',name:'Professional Email Setup',price:1299,desc:'Business email at yourdomain.com'},
+    {id:'o4',name:'Website Maintenance (Monthly)',price:999,desc:'Updates, backups, support'},
+    {id:'o5',name:'Consultation (1 Hour)',price:499,desc:'Business or tech consultation call'}
+  ]}
+};
+
+var COUPONS = {
+  'WELCOME10':{discount:10,minAmount:1000},
+  'SAVE20':{discount:20,minAmount:5000},
+  'BULK30':{discount:30,minAmount:10000}
+};
+
+var cart = {};
+var appliedCoupon = null;
+
+// ---- Format number with Indian commas ----
+function fmt(n){ return RS + n.toLocaleString('en-IN'); }
+
+// ---- Render Services ----
+function renderServices(){
+  var html = '';
+  for(var key in DB){
+    var cat = DB[key];
+    html += '<div class="section-card"><div class="section-head">' + cat.title + '</div><div>';
+    for(var i=0;i<cat.services.length;i++){
+      var s = cat.services[i];
+      html += '<div class="service-row">'
+        + '<div class="svc-info"><div class="svc-name">' + s.name + '</div><div class="svc-desc">' + s.desc + '</div></div>'
+        + '<div class="svc-right">'
+        + '<div class="svc-price">' + fmt(s.price) + '</div>'
+        + '<button class="add-btn" onclick="dspAdd(\'' + key + '\',\'' + s.id + '\')">+ Add</button>'
+        + '</div></div>';
+    }
+    html += '</div></div>';
+  }
+  document.getElementById('servicesContainer').innerHTML = html;
+}
+
+// ---- Cart Functions ----
+function dspAdd(catKey, svcId){
+  var svc = null;
+  for(var i=0;i<DB[catKey].services.length;i++){
+    if(DB[catKey].services[i].id === svcId){ svc = DB[catKey].services[i]; break; }
+  }
+  if(!svc) return;
+  if(cart[svcId]){ cart[svcId].qty++; }
+  else { cart[svcId] = {id:svc.id, name:svc.name, price:svc.price, qty:1}; }
+  renderCart();
+}
+
+function dspRemove(id){ delete cart[id]; renderCart(); }
+
+function dspQty(id, d){
+  if(!cart[id]) return;
+  cart[id].qty += d;
+  if(cart[id].qty <= 0) delete cart[id];
+  renderCart();
+}
+
+function renderCart(){
+  var el = document.getElementById('cartItems');
+  var keys = Object.keys(cart);
+  var payBtn = document.getElementById('dspPayBtn');
+  var waBtn  = document.getElementById('dspWaBtn');
+
+  if(keys.length === 0){
+    el.innerHTML = '<div class="cart-empty"><div class="ei">&#128717;</div><p>Cart is Empty</p><span>Select services from the left</span></div>';
+    payBtn.disabled = true; waBtn.disabled = true;
+    updateTotals(0); return;
+  }
+
+  var html = ''; var subtotal = 0;
+  for(var i=0;i<keys.length;i++){
+    var item = cart[keys[i]];
+    var lt = item.price * item.qty; subtotal += lt;
+    html += '<div class="cart-item">'
+      + '<div class="ci-top"><div class="ci-name">' + item.name + '</div>'
+      + '<button class="ci-rm" onclick="dspRemove(\'' + item.id + '\')">&#10005;</button></div>'
+      + '<div class="ci-bot">'
+      + '<div class="qty-ctrl">'
+      + '<button class="qty-btn" onclick="dspQty(\'' + item.id + '\',-1)">&#8722;</button>'
+      + '<span class="qty-val">' + item.qty + '</span>'
+      + '<button class="qty-btn" onclick="dspQty(\'' + item.id + '\',1)">+</button>'
+      + '</div>'
+      + '<span class="ci-total">' + fmt(lt) + '</span>'
+      + '</div></div>';
+  }
+  el.innerHTML = html;
+  payBtn.disabled = false; waBtn.disabled = false;
+  updateTotals(subtotal);
+}
+
+function updateTotals(subtotal){
+  var discount = 0;
+  if(appliedCoupon && subtotal >= appliedCoupon.minAmount){
+    discount = Math.floor(subtotal * appliedCoupon.discount / 100);
+  }
+  var total = subtotal - discount;
+  document.getElementById('dspSubtotal').textContent = fmt(subtotal);
+  document.getElementById('dspTotal').textContent    = fmt(total);
+  var dr = document.getElementById('dspDiscRow');
+  if(discount > 0){
+    dr.style.display = 'flex';
+    document.getElementById('dspDiscPct').textContent = appliedCoupon.discount;
+    document.getElementById('dspDiscAmt').textContent = discount.toLocaleString('en-IN');
+  } else { dr.style.display = 'none'; }
+}
+
+// ---- Coupon ----
+function dspApplyCoupon(){
+  var code = document.getElementById('dspCouponInput').value.trim().toUpperCase();
+  var msg  = document.getElementById('dspCouponMsg');
+  if(!code){ msg.innerHTML = '<span style="color:#ef4444">Please enter a coupon code.</span>'; return; }
+  if(!COUPONS[code]){ msg.innerHTML = '<span style="color:#ef4444">Invalid coupon code.</span>'; return; }
+  var subtotal = 0;
+  for(var id in cart){ subtotal += cart[id].price * cart[id].qty; }
+  if(subtotal < COUPONS[code].minAmount){
+    msg.innerHTML = '<span style="color:#f59e0b">Minimum order ' + fmt(COUPONS[code].minAmount) + ' required.</span>'; return;
+  }
+  appliedCoupon = COUPONS[code];
+  document.getElementById('dspCouponInput').disabled = true;
+  msg.innerHTML = '<span style="color:#10b981">' + COUPONS[code].discount + '% discount applied!</span>';
+  renderCart();
+}
+
+// ---- Helpers ----
+function getTotal(){
+  var subtotal = 0;
+  for(var id in cart){ subtotal += cart[id].price * cart[id].qty; }
+  var discount = 0;
+  if(appliedCoupon && subtotal >= appliedCoupon.minAmount){
+    discount = Math.floor(subtotal * appliedCoupon.discount / 100);
+  }
+  return subtotal - discount;
+}
+
+function validate(){
+  var name  = document.getElementById('dspName').value.trim();
+  var phone = document.getElementById('dspPhone').value.trim();
+  if(!name){ alert('Please enter your full name.'); return false; }
+  if(!phone || phone.length < 10){ alert('Please enter a valid 10-digit mobile number.'); return false; }
+  if(Object.keys(cart).length === 0){ alert('Your cart is empty! Please add a service.'); return false; }
+  return true;
+}
+
+function buildDesc(){
+  var items = [];
+  for(var id in cart){ items.push(cart[id].name + ' x' + cart[id].qty); }
+  return items.join(', ').substring(0, 250);
+}
+
+// ---- Razorpay Payment ----
+function dspRazorpay(){
+  if(!validate()) return;
+  var name  = document.getElementById('dspName').value.trim();
+  var phone = document.getElementById('dspPhone').value.trim();
+  var email = document.getElementById('dspEmail').value.trim();
+  var total = getTotal();
+  var options = {
+    key: DSP_RZP,
+    amount: total * 100,
+    currency: 'INR',
+    name: 'Digi Services Pro',
+    description: buildDesc(),
+    prefill: {name:name, contact:phone, email:email||''},
+    notes: {customer_name:name, customer_phone:phone, order_details:buildDesc()},
+    theme: {color:'#4f46e5'},
+    handler: function(response){
+      alert('Payment Successful!\n\nPayment ID: ' + response.razorpay_payment_id + '\n\nSending order confirmation on WhatsApp...');
+      sendOrder(true, response.razorpay_payment_id);
+    },
+    modal: {ondismiss: function(){ alert('Payment was cancelled. You can try again or place order on WhatsApp.'); }}
+  };
+  var rzp = new Razorpay(options);
+  rzp.on('payment.failed', function(r){ alert('Payment failed: ' + r.error.description + '\n\nPlease try again.'); });
+  rzp.open();
+}
+
+// ---- WhatsApp Order ----
+function dspWhatsapp(){
+  if(!validate()) return;
+  sendOrder(false, '');
+}
+
+function sendOrder(isPaid, payId){
+  var name  = document.getElementById('dspName').value.trim();
+  var phone = document.getElementById('dspPhone').value.trim();
+  var email = document.getElementById('dspEmail').value.trim();
+  var notes = document.getElementById('dspNotes').value.trim();
+  var msg = isPaid ? '*PAID ORDER - PAYMENT CONFIRMED*\n\n' : '*NEW SERVICE INQUIRY*\n\n';
+  msg += '*Customer Details:*\nName: ' + name + '\nPhone: ' + phone + '\n';
+  if(email) msg += 'Email: ' + email + '\n';
+  if(isPaid && payId) msg += '\n*Payment ID:* ' + payId + '\nStatus: PAID\n';
+  msg += '\n*Services Ordered:*\n';
+  var subtotal = 0;
+  for(var id in cart){
+    var item = cart[id];
+    var lt = item.price * item.qty; subtotal += lt;
+    msg += item.name + ' x' + item.qty + ' = ' + RS + lt.toLocaleString('en-IN') + '\n';
+  }
+  msg += '\nSubtotal: ' + RS + subtotal.toLocaleString('en-IN');
+  if(appliedCoupon){
+    var disc = Math.floor(subtotal * appliedCoupon.discount / 100);
+    msg += '\nDiscount (' + appliedCoupon.discount + '%): -' + RS + disc.toLocaleString('en-IN');
+    msg += '\n*Total: ' + RS + (subtotal - disc).toLocaleString('en-IN') + '*';
+  } else {
+    msg += '\n*Total: ' + RS + subtotal.toLocaleString('en-IN') + '*';
+  }
+  if(notes) msg += '\n\nRequirements:\n' + notes;
+  msg += '\n\n_Source: digiservicespro.com_';
+  window.open('https://wa.me/' + DSP_WA + '?text=' + encodeURIComponent(msg), '_blank');
+}
+
+// ---- Init ----
+renderServices();
+</script>
 </html>
